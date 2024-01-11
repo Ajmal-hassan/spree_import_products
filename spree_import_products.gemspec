@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   spree_version = '>= 4.6.0'
-  s.add_dependency 'rails', '~> 7.0.0'
+  s.add_dependency 'rails', '~> 7.1.0'
   s.add_dependency 'spree', spree_version
   s.add_dependency 'spree_backend', spree_version
   s.add_dependency 'spree_extension'
