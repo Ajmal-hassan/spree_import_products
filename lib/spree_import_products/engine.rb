@@ -9,7 +9,7 @@ module SpreeImportProducts
       g.test_framework :rspec
     end
 
-    initializer 'spree_import_products.environment', before: :load_config_initializers do |_app|
+    initializer 'spree_import_products.environment', after: :load_config_initializers do |_app|
       SpreeImportProducts::Config = SpreeImportProducts::Configuration.new
     end
 
