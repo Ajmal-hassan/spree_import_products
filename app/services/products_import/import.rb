@@ -1,4 +1,5 @@
 require 'roo'
+require 'open-uri'
 class ProductNotCreatedError < ::StandardError
 end
 
