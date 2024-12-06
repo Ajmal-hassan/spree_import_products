@@ -51,6 +51,9 @@ class ProductsImport::Import
       if @product.new_record?
         @product.stores << @current_store
         @product.status = 'active'
+        if row['quantity'].present?
+          update_stock_on_hand_and_track_inventory(@product.master, row['quantity'])
+        end
         if @product.save!
           # save_properties(row) if row['ProductProperties']
           save_taxons(row, @product) if row['Taxons']
@@ -67,6 +70,9 @@ class ProductsImport::Import
         end
       elsif @product.persisted?
         @product.status = 'active'
+        if row['quantity'].present?
+          update_stock_on_hand_and_track_inventory(@product.master, row['quantity'])
+        end
         save_variants(@product, row)
         save_taxons(row, @product) if row['Taxons']
         if row['image'].present?
