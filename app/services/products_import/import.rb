@@ -33,7 +33,7 @@ class ProductsImport::Import
   private
 
   def create_product(row, index)
-    shipping_category = find_or_create_shipping_category(row['ShippingCategory']) if row['ShippingCategory']
+    shipping_category = find_or_create_shipping_category('default')
     tax_category = find_or_create_tax_category(row['TaxCategory']) if row['TaxCategory']
     # Product find from sku for updating the variant if present
     if row['Name'].present?
