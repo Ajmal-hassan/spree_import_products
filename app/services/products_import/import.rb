@@ -137,8 +137,8 @@ class ProductsImport::Import
 
   def save_variants(product, row) #colour:blue;size:small | colour:red;size:medium | colour:green;size:small
     if row['option_type'].present? && row['option_value'].present?
-      option_type = Spree::OptionType.find_or_create_by(name: row['option_type'], presentation: row['option_type'].titleize)
-      option_value = Spree::OptionValue.find_or_create_by(name: row['option_value'], presentation: row['option_value'].titleize, option_type: option_type)
+      option_type = Spree::OptionType.find_or_create_by(name: row['option_type'].titleize, presentation: row['option_type'].titleize)
+      option_value = Spree::OptionValue.find_or_create_by(name: row['option_value'].titleize, presentation: row['option_value'], option_type: option_type)
       if option_type.present?
         if product.option_types.present?
           existing_option_type = product.option_types.find(option_type.id)
@@ -152,7 +152,7 @@ class ProductsImport::Import
         quantity = row['option_quantity']
         image_url = row['additional_image']
         if !already_present_variant.present?
-          product_variant = product.variants.new(cost_price: product.cost_price, sku: option_value.name, cost_currency: @current_store.default_currency, currency: @current_store.default_currency, track_inventory: false)
+          product_variant = product.variants.new(cost_price: product.cost_price, cost_currency: @current_store.default_currency, currency: @current_store.default_currency, track_inventory: false)
           product_variant.option_values << option_value
           if product_variant.save!
             update_stock_on_hand_and_track_inventory(product_variant, quantity)
